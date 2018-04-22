@@ -2,7 +2,7 @@ var theMovieDBApi = {
   baseUrl: "https://api.themoviedb.org/3",
   discoverUrl: "/discover/movie",
   configParams: {
-    api_key: "ff6edf14d9adb5fc804d87c7609c97ae",
+    api_key: "",
     adult: false,
     page: Math.floor((Math.random() * 10) + 1),
     sort_by: ["popularity.desc", "vote_count.desc"][Math.floor(Math.random() * 3)]

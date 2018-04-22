@@ -1,0 +1,69 @@
+body {
+  background-color: #f3f5f2;
+}
+
+header {
+  padding: 2% 0% 2% 0%;
+}
+
+i {
+  display: block;
+  font-size: 100px;
+}
+
+i:hover {
+  display: block;
+  cursor: pointer;
+}
+
+img {
+  margin-right: 3%;
+  max-width: 400px;
+  max-height: 100%;
+}
+
+.icon-holder {
+  margin-top: 5%;
+  margin-right: 10%;
+}
+
+#dislike-button {
+  margin-top: 7%;
+  margin-right: 10%;
+}
+
+#like-button {
+  margin-top: 7%;
+}
+
+#description-article {
+  max-width: 30%;
+}
+
+#description-text {
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #202121;
+  font-size: 25px;
+}
+
+#movie-title {
+  margin-top: 0;
+  font-style: bold;
+  color: #202121;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 45px;
+}
+
+#movie-holder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#navigation-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

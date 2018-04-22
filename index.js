@@ -5,16 +5,16 @@ function unique(array) {
 }
 
 var Drawer = (function() {
-  var resultsSectionId = '#results-section';
+  var resultsArticleId = "#results-article";
+  var movieTitle = "#movie-title";
+  var movieImage = "#movie-img";
+  var movieDescription = "#description-text";
 
   var drawSearchMovieResult = function(movie) {
-    $(resultsSectionId).empty();
-    $(resultsSectionId).html(`
-      <div>
-        <h3>${movie.title}<h3>
-        <img src=http://image.tmdb.org/t/p/w200/${movie.poster_path}>
-      </div> 
-    `);
+    console.log('movie', movie);
+    $(movieTitle).text(movie.title);
+    $(movieImage).attr("src", "http://image.tmdb.org/t/p/w400/" + movie.poster_path);
+    $(movieDescription).text(movie.overview);
   }
 
   return { drawSearchMovieResult: drawSearchMovieResult }
