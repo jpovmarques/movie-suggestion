@@ -1,45 +1,50 @@
-
 var theMovieDBApi = {
-  baseUrl: 'https://api.themoviedb.org/3',
-  discoverUrl: '/discover/movie',
+  baseUrl: "https://api.themoviedb.org/3",
+  discoverUrl: "/discover/movie",
   configParams: {
-    api_key: 'apikey',
+    api_key: "ff6edf14d9adb5fc804d87c7609c97ae",
     adult: false,
-    page: Math.floor((Math.random() * 10) + 1)
+    page: Math.floor((Math.random() * 10) + 1),
+    sort_by: ["popularity.desc", "vote_count.desc"][Math.floor(Math.random() * 3)]
   }
 };
 
-var MovieSearch = (function () {
+var MovieSearch = (function() {
 
   var movieList = [];
 
-  var searchButtonId = '#search-button';
-      likeButtonId = '#like-button';
-      dislikeButtonId = '#dislike-button';
+  var searchButtonId = "#search-button";
+  likeButtonId = "#like-button";
+  dislikeButtonId = "#dislike-button";
 
   var init = function() {
     getMovie();
     setSearchEvent();
   };
-  
+
   var setSearchEvent = function() {
-    $(searchButtonId).on('click', function(e) {
+    $(searchButtonId).on("click", function(e) {
       e.preventDefault();
       getMovie();
     });
 
-    $(likeButtonId).on('click', function(e) {
+    $(likeButtonId).on("click", function(e) {
       e.preventDefault();
-      
+
       var movie = getMovie();
-      if (movie) Cookie.changeCookie({ includedGenders: movie.genre_ids });
+      if (movie) Cookie.changeCookie({
+        includedGenders: movie.genre_ids,
+      });
     });
 
-    $(dislikeButtonId).on('click', function(e) {
+    $(dislikeButtonId).on("click", function(e) {
       e.preventDefault();
-      
+
       var movie = getMovie();
-      if (movie) Cookie.changeCookie({ excludedGenders: movie.genre_ids });
+      if (movie) Cookie.changeCookie({
+        excludedGenders: movie.genre_ids,
+        dates: [movie.release_date],
+      });
     });
   };
 
@@ -57,11 +62,11 @@ var MovieSearch = (function () {
   var requestMovie = function() {
 
     $.ajax({
-      dataType: 'json',
+      dataType: "json",
       url: theMovieDBApi.baseUrl + theMovieDBApi.discoverUrl,
       data: getParams(),
       success: function(response) {
-        movieList = response.results.splice(0, 5);
+        movieList = response.results.splice(0, 10);
 
         if (movieList.length > 0) {
           movie = chooseMovie(movieList);
@@ -72,21 +77,20 @@ var MovieSearch = (function () {
         }
       },
       error: function(error) {
-        console.log('error', error)
-        alert('Something went wrong! Try again later.');
+        alert("Something went wrong! Try again later.");
       }
     });
   };
 
-  var getParams = function(){
+  var getParams = function() {
     var configMovieParams = theMovieDBApi.configParams;
     var nextMovieParams = chooseNextMoviesParams();
 
-    var mergedParams = Object.assign( 
+    var mergedParams = Object.assign(
       configMovieParams,
       nextMovieParams
     );
-    
+
     return mergedParams;
   };
 
@@ -97,7 +101,7 @@ var MovieSearch = (function () {
     if (cookie) {
       if (cookie.excludedGenders) nextMovieParams.without_genres = cookie.excludedGenders.join();
       if (cookie.includedGenders) nextMovieParams.with_genres = cookie.includedGenders.join();
-      if (cookie.includedActors) nextMovieParams.with_people = cookie.includedActors.join();
+      if (cookie.dates) nextMovieParams["release_date.gte"] = cookie.dates[0];
     }
 
     return nextMovieParams;

@@ -3,31 +3,51 @@ var Cookie = (function() {
   var expireDate = " expires=Sun, 1 Jan 2050 00:00:00 UTC;";
 
   var obj = {
-      includedActors: [],
-      includedYears: [],
-      includedGenders: [],
-      excludedActors: [],
-      excludedYears: [],
-      excludedGenders: [],
-    };
-  
+    includedGenders: [],
+    dates: [],
+    excludedGenders: [],
+  };
+
   var create = function() {
     var cookieData;
-    for(var i = 0; i < Object.keys(obj).length; i++) {
+    for (var i = 0; i < Object.keys(obj).length; i++) {
       cookieData = Object.keys(obj)[i] + "=" + obj[Object.keys(obj)[i]].join(",") + ";"
       document.cookie = cookieData + expireDate;
     }
   }
 
   var changeCookie = function(obj) {
+
+    function getIncludedGenders(obj) {
+      if (obj.includedGenders) return obj.includedGenders.slice(0, 2);
+      else return [];
+    }
+
+    function getExcludedGenders(obj) {
+      if (obj.excludedGenders) return obj.excludedGenders.slice(0, 1);
+      else return [];
+    }
+
+    function getDates(obj) {
+      if (obj.dates) return obj.dates;
+      else return [];
+    }
+
     var mergedObj = {
-      includedGenders: unique((obj.includedGenders || []).concat(getCookieObject().includedGenders)).splice(0, 4),
-      excludedGenders: unique((obj.excludedGenders || []).concat(getCookieObject().excludedGenders)).splice(0, 4)
+      includedGenders: unique(getIncludedGenders(obj).concat(
+        getCookieObject().includedGenders
+      )).splice(0, 4),
+      excludedGenders: unique(getExcludedGenders(obj).concat(
+        getCookieObject().excludedGenders
+      )).splice(0, 2),
+      dates: getDates(obj).concat(
+        getCookieObject().dates
+      ).splice(0, 5)
     }
 
     var cookieData;
-    for(var i = 0; i < Object.keys(mergedObj).length; i++) {
-      cookieData = Object.keys(mergedObj)[i] + "=" + mergedObj[Object.keys(mergedObj)[i]].join(",") + ";"
+    for (var i = 0; i < Object.keys(mergedObj).length; i++) {
+      cookieData = Object.keys(mergedObj)[i] + "=" + mergedObj[Object.keys(mergedObj)[i]].join() + ";"
       document.cookie = cookieData + expireDate;
     }
   }
@@ -48,13 +68,13 @@ var Cookie = (function() {
 
         var key = elem.split("=")[0];
         var value = elem.split("=")[1];
-        
+
         if (value === ";") {
           value = [];
-        } else if(value) {
+        } else if (value) {
           value = value.replace(";", "").split(',');
         }
-        
+
         obj[key] = value;
       }
     }
