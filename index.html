@@ -11,22 +11,24 @@
 </head>
 
 <body>
-  <header>
-    <div id="ratting"></div>
-  </header>
-  <section id="results-article">
-    <div id="movie-holder">
-      <img id="movie-img"></img>
-      <article id="description-article">
-        <h1 id="movie-title"></h1>
-        <p id="description-text"></p>
-      </article>
-    </div>
-  </section>
-  <section id="navigation-section">
-    <i type="submit" id="dislike-button" class="fas fa-times-circle"></i>
-    <i type="submit" id="like-button" class="fas fa-check-circle"></i>
-  </section>
+  <div id="wrapper">
+    <header id="nav-bar">
+      <img id="logo" src="/logo.png" />
+    </header>
+    <section id="results-article">
+      <div id="movie-holder">
+        <img id="movie-img"></img>
+        <article id="description-article">
+          <h1 id="movie-title"></h1>
+          <p id="description-text"></p>
+        </article>
+      </div>
+    </section>
+    <section id="navigation-section">
+      <div><i type="submit" id="dislike-button" class="fas fa-thumbs-down ripple"></i></div>
+      <di><i type="submit" id="like-button" class="fas fa-thumbs-up ripple"></i></div>
+    </section>
+  </div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="Cookie.js"></script>

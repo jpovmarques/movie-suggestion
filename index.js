@@ -13,7 +13,7 @@ var Drawer = (function() {
   var drawSearchMovieResult = function(movie) {
     console.log('movie', movie);
     $(movieTitle).text(movie.title);
-    $(movieImage).attr("src", "http://image.tmdb.org/t/p/w400/" + movie.poster_path);
+    $(movieImage).attr("src", "http://image.tmdb.org/t/p/w342/" + movie.poster_path);
     $(movieDescription).text(movie.overview);
   }
 

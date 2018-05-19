@@ -2,7 +2,7 @@ var theMovieDBApi = {
   baseUrl: "https://api.themoviedb.org/3",
   discoverUrl: "/discover/movie",
   configParams: {
-    api_key: "ff6edf14d9adb5fc804d87c7609c97ae",
+    api_key: "",
     adult: false,
     page: Math.floor((Math.random() * 10) + 1),
     sort_by: ["popularity.desc", "vote_count.desc"][Math.floor(Math.random() * 3)]
@@ -30,21 +30,33 @@ var MovieSearch = (function() {
 
     $(likeButtonId).on("click", function(e) {
       e.preventDefault();
-
+      
+      $(likeButtonId).animate({ "font-size": "80px" })
+      setTimeout(function() {
+        $(likeButtonId).animate({ "font-size": "70px" })
+      }, 5)
+      
       var movie = getMovie();
       if (movie) Cookie.changeCookie({
         includedGenders: movie.genre_ids,
       });
+
     });
 
     $(dislikeButtonId).on("click", function(e) {
       e.preventDefault();
+      
+      $(dislikeButtonId).animate({ "font-size": "80px" })
+      setTimeout(function() {
+        $(dislikeButtonId).animate({ "font-size": "70px" })
+      }, 5)
 
       var movie = getMovie();
       if (movie) Cookie.changeCookie({
         excludedGenders: movie.genre_ids,
         dates: [movie.release_date],
       });
+
     });
   };
 
